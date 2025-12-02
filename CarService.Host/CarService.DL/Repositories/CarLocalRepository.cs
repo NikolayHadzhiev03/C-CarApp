@@ -1,31 +1,20 @@
 ﻿using CarService.DL.Interfaces;
-using CarService.DL.LocalDb;
 using CarService.Models.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace CarService.DL.Repositories
 {
     internal class CarLocalRepository : ICarRepository
     {
-        public void AddCar(Car car)
-        {
-            StaticDb.Cars.Add(car);
-        }
+        private readonly List<Car> _cars = new();
 
-        public void DeleteCar(int id)
-        {
-            StaticDb.Cars.RemoveAll(c => c.Id == id);
-        }
+        public void AddCar(Car car) => _cars.Add(car);
 
-        public List<Car> GetAllCars()
-        {
-            return StaticDb.Cars;
-        }
+        public void DeleteCar(Guid id) => _cars.RemoveAll(c => c.Id == id);
 
-        public Car? GetById(int id)
-        {
-            return StaticDb.Cars
-                .FirstOrDefault(c =>
-                    c.Id == id);
-        }
+        public List<Car> GetAllCars() => new List<Car>(_cars);
+
+        public Car? GetById(Guid id) => _cars.Find(c => c.Id == id);
     }
 }
