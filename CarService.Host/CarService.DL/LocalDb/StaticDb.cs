@@ -1,4 +1,6 @@
-﻿using CarService.Models.Dto;
+﻿using System;
+using System.Collections.Generic;
+using CarService.Models.Dto;
 
 namespace CarService.DL.LocalDb
 {
@@ -6,26 +8,25 @@ namespace CarService.DL.LocalDb
     {
         public static List<Car> Cars = new List<Car>
         {
-            new Car { Id = 1, Model = "Toyota Camry", Year = 2020 },
-            new Car { Id = 2, Model = "Honda Accord", Year = 2019 },
-            new Car { Id = 3, Model = "Ford Mustang", Year = 2021 }
+            new Car { Id = Guid.NewGuid(), Model = "Toyota Camry", Year = 2020 },
+            new Car { Id = Guid.NewGuid(), Model = "Honda Accord", Year = 2019 },
+            new Car { Id = Guid.NewGuid(), Model = "Ford Mustang", Year = 2021 }
         };
-
-        public static List<Customer> Customers =
-            new List<Customer>()
+            
+        public static List<Customer> Customers = new List<Customer>()
+        {
+            new Customer()
             {
-                new Customer()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "John Doe",
-                    Email = "jd@xxx.com"
-                },
-                new Customer()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Stamat Genov",
-                    Email = "sg@xxx.com"
-                }
-            };
+                Id = Guid.NewGuid(),
+                Name = "John Doe",
+                Email = "jd@xxx.com"
+            },
+            new Customer()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Stamat Genov",
+                Email = "sg@xxx.com"
+            }
+        };
     }
 }

@@ -12,24 +12,26 @@ namespace CarService.Host.Controllers
     {
         private readonly ICarCrudService _carCrudService;
         private readonly IMapper _mapper;
-        
+        private readonly ILogger<CarsController> _logger;
 
         public CarsController(
-            ICarCrudService carCrudService, 
-            IMapper mapper, 
+            ICarCrudService carCrudService,
+            IMapper mapper,
             ILogger<CarsController> logger)
         {
-            _carCrudService = carCrudService;
+            _carCrudService = carCrudService ?? throw new ArgumentNullException(nameof(carCrudService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpDelete]
-        public IActionResult DeleteCar(int id)
+        public IActionResult DeleteCar(Guid id)
         {
-            if (id <= 0)
+            if (id == Guid.Empty)
             {
-                return BadRequest("ID must be greater than zero.");
+                return BadRequest("ID must be a valid GUID.");
             }
-            var car = _carCrudService.GetById(id);
+            var car = _carCrudService.GetById(  id);
             if (car == null)
             {
                 return NotFound($"Car with ID {id} not found.");
@@ -39,12 +41,11 @@ namespace CarService.Host.Controllers
         }
 
         [HttpGet(nameof(GetById))]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
-            if (id <= 0)
+            if (id == Guid.Empty)
             {
-               
-                return BadRequest("ID must be greater than zero.");
+                return BadRequest("ID must be a valid GUID.");
             }
 
             var car = _carCrudService.GetById(id);

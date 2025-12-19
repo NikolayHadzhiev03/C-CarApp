@@ -1,6 +1,8 @@
 ﻿using CarService.BL.Interfaces;
 using CarService.DL.Interfaces;
 using CarService.Models.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace CarService.BL.Services
 {
@@ -15,10 +17,14 @@ namespace CarService.BL.Services
 
         public void AddCar(Car car)
         {
+            if (car == null)
+            {
+                throw new ArgumentNullException(nameof(car), "Car cannot be null");
+            }
             _carRepository.AddCar(car);
         }
 
-        public void DeleteCar(int id)
+        public void DeleteCar(Guid id)
         {
             _carRepository.DeleteCar(id);
         }
@@ -26,9 +32,9 @@ namespace CarService.BL.Services
         public List<Car> GetAllCars()
         {
             return _carRepository.GetAllCars();
-        }
+        }       
 
-        public Car? GetById(int id)
+        public Car? GetById(Guid id)
         {
             return _carRepository.GetById(id);
         }

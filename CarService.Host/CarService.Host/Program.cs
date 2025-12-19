@@ -1,4 +1,3 @@
-
 using CarService.BL;
 using CarService.BL.Interfaces;
 using CarService.DL;
@@ -12,7 +11,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 
 namespace CarService.Host
-{
+{   
     public class Program
     {
         public static void Main(string[] args)
@@ -27,6 +26,7 @@ namespace CarService.Host
 
             // Add services to the container.
             builder.Services
+                .AddConfigurations(builder.Configuration)
                 .AddDataLayer()
                 .AddBusinessLayer();
 

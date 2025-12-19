@@ -1,15 +1,14 @@
 ﻿using CarService.Models.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace CarService.DL.Interfaces
 {
     public interface ICarRepository
     {
         void AddCar(Car car);
-
-        void DeleteCar(int id);
-
+        void DeleteCar(Guid id);
         List<Car> GetAllCars();
-
-        Car? GetById(int id);
+        Car? GetById(Guid id);
     }
 }
